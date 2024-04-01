@@ -48,7 +48,15 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
   res
     .status(201)
     .cookie("token", "", {
+      // Set the Secure attribute to ensure the cookie is only sent over HTTPS connections
+      secure: true,
+
+      // Set the HttpOnly attribute to prevent client-side JavaScript access
       httpOnly: true,
+
+      // Set the SameSite attribute to prevent CSRF attacks
+      sameSite: "strict",
+
       expires: new Date(Date.now()),
     })
     .json({
